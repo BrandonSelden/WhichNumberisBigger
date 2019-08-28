@@ -10,27 +10,37 @@ public class BiggerNumberGame  {
     public BiggerNumberGame(int lowLim, int hiLim) {
         this.lowLim = lowLim;
         this.hiLim = hiLim;
+        generateRandomNumbers();
     }
 
     public void generateRandomNumbers(){
         //generate number between uppr n lower limits inclusive.
         //store in number1
         //generate other number and store in number2
-        int temp = hiLim - lowLim + 1;
-        number1 = (int)(Math.random() * temp) + lowLim;
-        number2 = (int)(Math.random() * temp) + lowLim;
+        number1 = (int)(Math.random() * hiLim - lowLim + 1) + lowLim;
+        number2 = (int)(Math.random() * hiLim - lowLim + 1) + lowLim;
         while(number1 == number2){
-            number2 = (int)(Math.random() * temp) + lowLim;
+            number2 = (int)(Math.random() * hiLim - lowLim + 1) + lowLim;
         }
     }
 
     public String checkAnswer(int answer){
         //determine if answer is correct, and update score, and return message
-        if(answer == (Math.max(number1, number2))){
-            score++;
+        if(isRight(answer))
+        {
             return "YOU DID IT!";
         }
         return "BOO! TRY AGAIN!";
+    }
+
+    public boolean isRight(int answer)
+    {
+        if(answer == (Math.max(number1, number2))){
+            score++;
+            return true;
+        }
+        score--;
+        return false;
     }
 
     public int getNumber1() {
